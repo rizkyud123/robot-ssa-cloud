@@ -16,32 +16,16 @@ st.set_page_config(
     layout="wide"
 )
 
-# Constants
-ID_APLIKASI = "bhr7tw5jq7xx6nnx6kb0ffbx"
-ID_INSTITUSI = "owors5gtnj0sfjfa8inzninr"
-
-MAPPING_FORMULIR = {
-    "Kinerja": "qh10z7vms7zplgc5l6yhalug",
-    "Pelayanan Laboratorium": "oej0b3nabo0kgkj4ehsezouu",
-    "Pemeriksaan Medis": "hmnreug6rehzbmd6h66qb7r0",
-    "Rujukan External": "my57ikfdyylj6ds0x5guum06",
-    "Pelayanan Pasien": "b4w0omhq19xx6vlo78d6aurp",
-    "Kunjungan Pasien": "mnc17v3b1g7x95sse3frtj2a",
-    "Kunjungan Pasien BPJS": "hnabxtvavgyh8z8s14i7dx52"
-}
-
-DRIVE_LINKS = {
-    "Kinerja": "https://drive.google.com/drive/folders/10pbwym-PMa5ImHPXri_cgXa88sC4a2WW",
-    "Pelayanan Laboratorium": "https://drive.google.com/drive/folders/1a0-UgzwimvGI2VqqERwcyVJrd2YOUMax",
-    "Pemeriksaan Medis": "https://drive.google.com/drive/folders/1rV3EQxLpsPZ6MKs8Mv9JwyyVPPxR3pcl",
-    "Rujukan External": "https://drive.google.com/drive/folders/1y4ngUIApToIp3x609hiQBuCjFEaX1sSm",
-    "Pelayanan Pasien": "https://drive.google.com/drive/folders/1VCPwaz1byajTo15XJVqHpwNykI6z-pJV",
-    "Kunjungan Pasien": "https://drive.google.com/drive/folders/1n_u1RMBb5ouYcxVqNkCnMmKimo-oVECL",
-    "Kunjungan Pasien BPJS": "https://drive.google.com/drive/folders/1_2ubq5y4hllkm2Lz89GPyb2XL3bWXF9y"
-}
-
-# App password (change this!)
-APP_PASSWORD = "sedau2026"
+# Load secrets
+try:
+    ID_APLIKASI = st.secrets["id_aplikasi"]
+    ID_INSTITUSI = st.secrets["id_institusi"]
+    MAPPING_FORMULIR = st.secrets["mapping_formulir"]
+    DRIVE_LINKS = st.secrets["drive_links"]
+    APP_PASSWORD = st.secrets["app_password"]
+except KeyError as e:
+    st.error(f"Secret tidak ditemukan: {e}. Silakan set secrets di Streamlit Cloud.")
+    st.stop()
 
 # Persistent log file
 LOG_FILE = "upload_history.json"
