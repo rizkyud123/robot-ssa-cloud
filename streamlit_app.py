@@ -187,6 +187,9 @@ def upload_single_file(df, file_name, username, password, progress_bar, status_t
             res_json = response.json()
             server_id = res_json.get('data', {}).get('id', 'N/A')
 
+            # Get Drive link
+            drive_link = DRIVE_LINKS.get(judul_bersih, "")
+
             # Save to persistent history
             upload_data = {
                 "Waktu_Upload": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -195,11 +198,12 @@ def upload_single_file(df, file_name, username, password, progress_bar, status_t
                 "ID_Database_Server": server_id,
                 "Status": "SUKSES",
                 "Username": username,
-                "Tanggal_Laporan": tgl_iso
+                "Tanggal_Laporan": tgl_iso,
+                "Drive_Link": drive_link
             }
             add_to_history(upload_data)
 
-            return f"✅ Berhasil! ID Server: {server_id}"
+            return f"✅ Berhasil! ID Server: {server_id}. [Cek Drive]({drive_link})"
         else:
             return f"Gagal: {response.text}"
 
